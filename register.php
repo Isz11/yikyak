@@ -1,4 +1,5 @@
 <?php
+
   include('config/db_connect.php');
   $username = '';
   $password = '';
@@ -23,21 +24,23 @@
         $errors['password'] = 'Password can only be letters, numbers, spaces and underscore';
       }
     }
-  } // end of the POST check
+   // end of the POST check
 
-if(array_filter($errors)){
-  echo 'errors in the form';
-} else {
-  $username = mysqli_real_escape_string($conn, $_POST['username']);
-  $password = mysqli_real_escape_string($conn, $_POST['password']);
-
-  $sql = "INSERT INTO user(username,password) VALUES('$username', '$password')";
-
-  // save to the db and check
-  if(mysqli_query($conn, $sql)){
-    header('Location: index.php');
+  if(array_filter($errors)){
+    // echo 'errors in the form';
   } else {
-    echo 'Query error: ' . mysqli_error($conn);
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+    $sql = "INSERT INTO user(username,password) VALUES('$username', '$password')";
+
+    // save to the db and check
+    if(mysqli_query($conn, $sql)){
+      header('Location: index.php');
+      echo 'All worked correctly';
+    } else {
+      echo 'Query error: ' . mysqli_error($conn);
+    }
   }
 }
 ?>
@@ -59,7 +62,7 @@ if(array_filter($errors)){
       </div>
       <br><br>
       <div class="">
-        <input type="submit" name="submit" value="Register">
+        <input type="submit" name="submit" value="Register" class="btn">
       </div>
     </form>
   </section>
