@@ -26,6 +26,9 @@
   <head>
     <meta charset="utf-8">
     <title>Yik Yak</title>
+    <a href="register.php">Register</a>
+    <a href="login.php">Login</a>
+    <a href="logout.php">Logout</a>
     <img src="images/yikyak.png" class="logo-writing">
     <img src="images/yikyaklogo1.png" class="logo">
     <h1>Welcome to Yik Yak, the anonymous social media app</h1>

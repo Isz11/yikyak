@@ -26,8 +26,14 @@
     }
    // end of the POST check
 
+   $sql_u = "SELECT * FROM user WHERE username='$username'";
+   $res_u = mysqli_query($conn, $sql_u);
+
+
   if(array_filter($errors)){
     // echo 'errors in the form';
+  } else if(mysqli_num_rows($res_u) > 0){
+    $errors['username'] = 'This username is already taken <br/>';
   } else {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
