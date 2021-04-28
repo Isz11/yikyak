@@ -47,7 +47,7 @@
     		$_SESSION['loggedin'] = TRUE;
     		$_SESSION['name'] = $_POST['username'];
     		$_SESSION['id'] = $id;
-    		echo 'Welcome ' . $_SESSION['name'] . '!';
+    		header('Location: index.php');
     	} else {
     		// Incorrect password
     		echo 'Incorrect username and/or password!';
@@ -58,14 +58,8 @@
     }
   }
  	$stmt->close();
-
 }
-
 ?>
-
-
-
-
 
 
 <!DOCTYPE html>

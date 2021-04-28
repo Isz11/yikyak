@@ -43,7 +43,6 @@
     // save to the db and check
     if(mysqli_query($conn, $sql)){
       header('Location: index.php');
-      echo 'All worked correctly';
     } else {
       echo 'Query error: ' . mysqli_error($conn);
     }
