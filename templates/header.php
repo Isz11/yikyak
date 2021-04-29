@@ -26,11 +26,23 @@
   <head>
     <meta charset="utf-8">
     <title>Yik Yak</title>
-    <a href="register.php">Register</a>
-    <a href="login.php">Login</a>
-    <a href="logout.php">Logout</a>
-    <img src="images/yikyak.png" class="logo-writing">
-    <img src="images/yikyaklogo1.png" class="logo">
-    <h1>Welcome to Yik Yak, the anonymous social media app</h1>
+    <?php
+    // session_start();
+
+    if(isset($_SESSION["loggedin"])){
+      echo 'Welcome ' . $_SESSION['name'] . '!'; ?>
+      <a href="logout.php">Logout</a>
+    <?php } else { ?>
+      <a href="login.php">Login</a>
+      <a href="register.php">Register</a>
+    <?php } ?>
+
+    <!-- <a href="login.php">Login</a> -->
+
+    <a href="index.php">
+      <img alt="Qries" src="images/yikyaklogo1" class="logo">
+    </a>
+    <!-- <img src="images/yikyak.png" class="logo-writing">
+    <img src="images/yikyaklogo1.png" class="logo"> -->
   </head>
   <body>
