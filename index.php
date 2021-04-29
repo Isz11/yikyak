@@ -28,18 +28,21 @@ if(isset($_POST['submit'])){
     <h1>Welcome to Yik Yak, the anonymous social media app</h1>
     <h4>Yaks</h4>
     <ul>
-      <div class = "yak-layout">
-        <?php foreach($yaks as $yak): ?>
-          <?php echo htmlspecialchars($yak['yak']); ?><br><br>
-        <?php endforeach; ?>
-      </div>
+        <div class = "yak-layout">
+            <?php foreach($yaks as $yak): ?>
+                <?php
+                    echo htmlspecialchars($yak['yak']);
+                    echo "<p style='color:lightgray; font-size: 10px'>".' posted on '.($yak['created'])."<p style='all:unset;'>";
+                ?><br><br>
+            <?php endforeach; ?>
+        </div>
     </ul>
     <form class="" action="index.php" method="post">
         <div>
             <textarea name="yakentry" rows="8" cols="80" placeholder="Enter your yak here"></textarea>
         </div>
         <div class="">
-          <input type="submit" name="submit" value="Yak" class="btn">
+            <input type="submit" name="submit" value="Yak" class="btn">
         </div>
     </form>
     <?php include ('templates/footer.php'); ?>
