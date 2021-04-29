@@ -18,13 +18,11 @@
     // check the username
     if(empty($_POST['username'])){
       $errors['username'] = 'Please enter your username <br/>';
-    } else {
     }
 
     // check the password
     if(empty($_POST['password'])){
       $errors['password'] = 'Please enter your password <br/>';
-    } else {
     }
 
    // end of the POST check
