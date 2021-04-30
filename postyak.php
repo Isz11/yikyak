@@ -3,13 +3,13 @@ session_start();
 
 include('config/db_connect.php');
 
-
 if(isset($_POST['submit'])){
     if(empty($_POST['yakentry'])){
         echo 'Please enter a yak';
     } else {
         $newyak = mysqli_real_escape_string($conn, $_POST['yakentry']);
-        $sql = "INSERT INTO yaks(yak,created_by,score) VALUES('$newyak','unknownUser','0')";
+        $id = $_SESSION['id']; // this grabs the id of the logged in user
+        $sql = "INSERT INTO yaks(yak,created_by,score) VALUES('$newyak','$id','0')";
         if(mysqli_query($conn, $sql)){
           header('Location: index.php');
         } else {
