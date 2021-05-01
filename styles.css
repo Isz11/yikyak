@@ -1,16 +1,11 @@
-h4 {
-    text-align: center;
-}
-section {
-    text-align: center;
-}
 li {
     list-style-type: none;
 }
 .yak-layout {
+    align: center
     border: 1px solid lightgray;
     background-color: gray;
-}
-div {
-    text-align: center;
+    display: block;
+    margin: auto
+    max-width: 500px;
 }
