@@ -2,7 +2,7 @@
 session_start();
 
 include('config/db_connect.php');
-$sql = 'SELECT yak, created_by, created FROM yaks ORDER BY created DESC';
+$sql = 'SELECT yak, created_by, created, score FROM yaks ORDER BY created DESC';
 $result = mysqli_query($conn, $sql);
 $yaks = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -48,12 +48,14 @@ function get_time_ago( $time )
     <?php } ?>
 
 
-    <h4>Yaks</h4>
-    <ul>
-        <div class = "yak-layout">
+    <h4 style="text-align:center">Yaks</h4>
+    <ul class = "yak-layout">
+        <div>
             <?php foreach($yaks as $yak): ?>
                 <?php
-                    echo htmlspecialchars($yak['yak']);
+                    echo htmlspecialchars($yak['yak']); ?><br>
+                    <a style='color:lightgray; font-size: 12px;' href="#"> Upvote </a><a style='color:lightgray; font-size: 12px' href="#"> Downvote </a><?php
+                    echo intval($yak['score']);
                     echo "<p style='color:lightgray; font-size: 10px'>". get_time_ago(strtotime($yak['created'])) ."<p style='all:unset;'>";
                 ?><br><br>
             <?php endforeach; ?>
