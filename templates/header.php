@@ -36,13 +36,8 @@
       <a href="login.php">Login</a>
       <a href="register.php">Register</a>
     <?php } ?>
-
-    <!-- <a href="login.php">Login</a> -->
-
     <a href="index.php">
       <img alt="Qries" src="images/yikyaklogo1" class="logo">
     </a>
-    <!-- <img src="images/yikyak.png" class="logo-writing">
-    <img src="images/yikyaklogo1.png" class="logo"> -->
   </head>
   <body>
