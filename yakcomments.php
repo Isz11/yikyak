@@ -2,6 +2,7 @@
 session_start();
 
 include('config/db_connect.php');
+include('timeago.php');
 
 if(isset($_POST['delete'])){
     $id_to_delete = mysqli_real_escape_string($conn, $_POST['id_to_delete']);
@@ -22,6 +23,10 @@ if(isset($_GET['id'])){
     // mysqli_free_result($result);
     // mysqli_close($conn);
 }
+
+$sql2 = "SELECT * FROM comments WHERE yak = $id ORDER BY created DESC";
+$result = mysqli_query($conn, $sql2);
+$comments = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -30,14 +35,29 @@ if(isset($_GET['id'])){
 <div class="container center">
     <?php if($yak): ?>
         <h4><?php echo htmlspecialchars($yak['yak']); ?></h4>
-        <p><?php echo date($yak['created']); ?></p>
+        <p><?php echo "<p style='color:gray; font-size: 10px'>". get_time_ago(strtotime($yak['created'])) ."<p style='all:unset;'>"; ?></p>
         <form action="yakcomments.php" method="POST">
             <input type="hidden" name="id_to_delete" value="<?php echo $yak['id']; ?>">
-            <input type="submit" name="delete" value="Delete">
+            <input type="submit" name="delete" value="Delete Yak">
         </form>
         <h5>Comments</h5>
+        <?php
+        if(isset($_SESSION["loggedin"])){ ?>
+            <div align='center'><a href="postcomment.php?id=<?php echo $yak['id'] ?>">Post a comment</a></div>
+        <?php } else { ?>
+            <div align='center'>Please login to comment on a yak</div>
+        <?php } ?>
 
-        <!-- nothing here yet -->
+        <ul class = "yak-layout">
+            <div>
+                <?php foreach($comments as $comment):
+                    echo htmlspecialchars($comment['comment']);?><br><?php
+                    // echo intval($yak['score']);
+                    echo "<p style='color:lightgray; font-size: 10px'>". get_time_ago(strtotime($comment['created'])) ."<p style='all:unset;'>"; ?>
+                    <br><br>
+                <?php endforeach; ?>
+            </div>
+        </ul>
 
     <?php else: ?>
         <h5>No such yak exists!</h5>
