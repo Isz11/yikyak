@@ -20,13 +20,15 @@ if(isset($_GET['id'])){
     $sql = "SELECT * FROM yaks WHERE id = $id"; //make sql
     $result = mysqli_query($conn, $sql); // get the query result
     $yak = mysqli_fetch_assoc($result); // fetch result in array format
+    // var_dump($yak);
     // mysqli_free_result($result);
     // mysqli_close($conn);
 }
 
 $sql2 = "SELECT * FROM comments WHERE yak = $id ORDER BY created DESC";
-$result = mysqli_query($conn, $sql2);
-$comments = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$result2 = mysqli_query($conn, $sql2);
+$comments = mysqli_fetch_all($result2, MYSQLI_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -34,11 +36,17 @@ $comments = mysqli_fetch_all($result, MYSQLI_ASSOC);
 <?php include ('templates/header.php'); ?>
 <div class="container center">
     <?php if($yak): ?>
-        <h4><?php echo htmlspecialchars($yak['yak']); ?></h4>
+        <?php echo "<p style='color:black; font-size: 22px'>". htmlspecialchars($yak['yak']) ."<p style='all:unset;'>"; ?>
         <p><?php echo "<p style='color:gray; font-size: 10px'>". get_time_ago(strtotime($yak['created'])) ."<p style='all:unset;'>"; ?></p>
         <form action="yakcomments.php" method="POST">
-            <input type="hidden" name="id_to_delete" value="<?php echo $yak['id']; ?>">
-            <input type="submit" name="delete" value="Delete Yak">
+            <?php if(isset($_SESSION["loggedin"])){
+                // echo $yak['created_by'];
+                // echo $_SESSION['id'];
+                if ($yak['created_by'] == $_SESSION['id']) { ?>
+                    <input type="hidden" name="id_to_delete" value="<?php echo $yak['id']; ?>">
+                    <input type="submit" name="delete" value="Delete Yak">
+                <?php }
+            } ?>
         </form>
         <h5>Comments</h5>
         <?php
