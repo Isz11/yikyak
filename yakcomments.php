@@ -39,14 +39,10 @@ $comments = mysqli_fetch_all($result2, MYSQLI_ASSOC);
         <?php echo "<p style='color:black; font-size: 22px'>". htmlspecialchars($yak['yak']) ."<p style='all:unset;'>"; ?>
         <p><?php echo "<p style='color:gray; font-size: 10px'>". get_time_ago(strtotime($yak['created'])) ."<p style='all:unset;'>"; ?></p>
         <form action="yakcomments.php" method="POST">
-            <?php if(isset($_SESSION["loggedin"])){
-                // echo $yak['created_by'];
-                // echo $_SESSION['id'];
-                if ($yak['created_by'] == $_SESSION['id']) { ?>
-                    <input type="hidden" name="id_to_delete" value="<?php echo $yak['id']; ?>">
-                    <input type="submit" name="delete" value="Delete Yak">
-                <?php }
-            } ?>
+            <?php if(isset($_SESSION["loggedin"]) && $yak['created_by'] == $_SESSION['id']){ ?>
+                <input type="hidden" name="id_to_delete" value="<?php echo $yak['id']; ?>">
+                <input type="submit" name="delete" value="Delete Yak">
+            <?php } ?>
         </form>
         <h5>Comments</h5>
         <?php
@@ -60,8 +56,7 @@ $comments = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             <div>
                 <?php foreach($comments as $comment):
                     echo htmlspecialchars($comment['comment']);?><br><?php
-                    // echo intval($yak['score']);
-                    echo "<p style='color:lightgray; font-size: 10px'>". get_time_ago(strtotime($comment['created'])) ."<p style='all:unset;'>"; ?>
+                    echo "<p style='color:lightgray; font-size: 10px'>". get_time_ago(strtotime($comment['created'])) ."<p style='all:unset;'>"; ?> <!--I will echo html all I want Joe-->
                     <br><br>
                 <?php endforeach; ?>
             </div>
