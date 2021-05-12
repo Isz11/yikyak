@@ -31,7 +31,8 @@
 
     if(isset($_SESSION["loggedin"])){
       echo 'Welcome ' . $_SESSION['name'] . '!'; ?>
-      <a href="logout.php">Logout</a>
+      <a href="logout.php">Logout</a><br>
+      <a href="profile.php">Your profile</a>
     <?php } else { ?>
       <a href="login.php">Login</a>
       <a href="register.php">Register</a>
