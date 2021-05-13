@@ -4,7 +4,7 @@ session_start();
 include('config/db_connect.php');
 
 $yakid = (int) $_GET['id']; // grabs yak id from url
-echo 'this yak id is ' . $yakid . "</br>" . 'the logged in user is ' . $_SESSION['id'] . "</br>";
+// echo 'this yak id is ' . $yakid . "</br>" . 'the logged in user is ' . $_SESSION['id'] . "</br>";
 
 if(isset($_POST['submit'])){
     if(empty($_POST['yakcomment'])){
@@ -14,7 +14,8 @@ if(isset($_POST['submit'])){
         $yakid = mysqli_real_escape_string($conn, $_POST['yakid']);
         $id = $_SESSION['id']; // this grabs the id of the logged in user
         $sql = "INSERT INTO comments(user,yak,comment) VALUES('$id','$yakid','$newcomment')";
-        if(mysqli_query($conn, $sql)){
+        $sql2 = "UPDATE user SET karma = karma + 1 WHERE id = $id";
+        if(mysqli_query($conn, $sql) && mysqli_query($conn, $sql2)){
           header("Location: yakcomments.php?id=$yakid");
         } else {
           echo 'Query error: ' . mysqli_error($conn);
