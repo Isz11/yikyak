@@ -3,32 +3,47 @@ if(isset($_POST['upvote']) && isset($_SESSION["loggedin"])){
     $yakid = mysqli_real_escape_string($conn, $_POST['yakid']);
     $sqlu1 = "SELECT COUNT(*) FROM votes WHERE user = $id AND yak = $yakid AND vote = 1";
     $sqlu2 = "SELECT COUNT(*) FROM votes WHERE user = $id AND yak = $yakid AND vote = -1";
+    $sqlu3 = "SELECT COUNT(*) FROM votes WHERE user = $id AND yak = $yakid AND vote = 0";
     $resultu1 = mysqli_query($conn, $sqlu1);
     $resultu2 = mysqli_query($conn, $sqlu2);
+    $resultu3 = mysqli_query($conn, $sqlu3);
     $alreadyupvoted1 = mysqli_fetch_assoc($resultu1)['COUNT(*)'];
     $alreadydownvoted1 = mysqli_fetch_assoc($resultu2)['COUNT(*)'];
+    $removedvote1 = mysqli_fetch_assoc($resultu3)['COUNT(*)'];
     if($alreadyupvoted1 > 0){
-        $sqlu3 = "UPDATE votes SET vote = 0 WHERE yak = $yakid";
-        $sqlu4 = "UPDATE yaks SET score = score - 1 WHERE id = $yakid";
-        if(mysqli_query($conn, $sqlu3) && mysqli_query($conn, $sqlu4)){
-            echo 'you upvoted this yak';
+        $sql = "UPDATE votes SET vote = 0 WHERE yak = $yakid";
+        $sql2 = "UPDATE yaks SET score = score - 1 WHERE id = $yakid";
+        $sql3 = "UPDATE user SET karma = karma - 1 WHERE id = $id";
+        if(mysqli_query($conn, $sql) && mysqli_query($conn, $sql2) && mysqli_query($conn, $sql3)){
+            echo 'you removed your vote';
             header("Refresh:0");
         } else {
             echo 'Query error: ' . mysqli_error($conn);
         }
     } elseif($alreadydownvoted1 > 0) {
-        $sqlu5 = "UPDATE votes SET vote = 1 WHERE yak = $yakid";
-        $sqlu6 = "UPDATE yaks SET score = score + 2 WHERE id = $yakid";
-        if(mysqli_query($conn, $sqlu5) && mysqli_query($conn, $sqlu6)){
+        $sql = "UPDATE votes SET vote = 1 WHERE yak = $yakid";
+        $sql2 = "UPDATE yaks SET score = score + 2 WHERE id = $yakid";
+        if(mysqli_query($conn, $sql) && mysqli_query($conn, $sql2)){
+            echo 'you upvoted this yak';
+            header("Refresh:0");
+        } else {
+            echo 'Query error: ' . mysqli_error($conn);
+        }
+    } elseif($removedvote1 > 0) {
+        $sql = "UPDATE votes SET vote = 1 WHERE yak = $yakid";
+        $sql2 = "UPDATE yaks SET score = score + 1 WHERE id = $yakid";
+        $sql3 = "UPDATE user SET karma = karma + 1 WHERE id = $id";
+        if(mysqli_query($conn, $sql) && mysqli_query($conn, $sql2) && mysqli_query($conn, $sql3)){
             echo 'you upvoted this yak';
             header("Refresh:0");
         } else {
             echo 'Query error: ' . mysqli_error($conn);
         }
     } else {
-        $sqlu7 = "INSERT INTO votes(user,yak,vote) VALUES('$id','$yakid','1')";
-        $sqlu8 = "UPDATE yaks SET score = score + 1 WHERE id = $yakid";
-        if(mysqli_query($conn, $sqlu7) && mysqli_query($conn, $sqlu8)){
+        $sql = "INSERT INTO votes(user,yak,vote) VALUES('$id','$yakid','1')";
+        $sql2 = "UPDATE yaks SET score = score + 1 WHERE id = $yakid";
+        $sql3 = "UPDATE user SET karma = karma + 1 WHERE id = $id";
+        if(mysqli_query($conn, $sql) && mysqli_query($conn, $sql2) && mysqli_query($conn, $sql3)){
             echo 'you upvoted this yak';
             header("Refresh:0");
         } else {
@@ -41,32 +56,47 @@ if(isset($_POST['downvote']) && isset($_SESSION["loggedin"])){
     $yakid = mysqli_real_escape_string($conn, $_POST['yakid']);
     $sqld1 = "SELECT COUNT(*) FROM votes WHERE user = $id AND yak = $yakid AND vote = 1";
     $sqld2 = "SELECT COUNT(*) FROM votes WHERE user = $id AND yak = $yakid AND vote = -1";
+    $sqld3 = "SELECT COUNT(*) FROM votes WHERE user = $id AND yak = $yakid AND vote = 0";
     $resultd1 = mysqli_query($conn, $sqld1);
     $resultd2 = mysqli_query($conn, $sqld2);
-    $alreadyupvoted2 = mysqli_fetch_assoc($resultd1)['COUNT(*)'];
-    $alreadydownvoted2 = mysqli_fetch_assoc($resultd2)['COUNT(*)'];
-    if($alreadydownvoted2 > 0){
-        $sqld3 = "UPDATE votes SET vote = 0 WHERE yak = $yakid";
-        $sqld4 = "UPDATE yaks SET score = score + 1 WHERE id = $yakid";
-        if(mysqli_query($conn, $sqld3) && mysqli_query($conn, $sqld4)){
+    $resultd3 = mysqli_query($conn, $sqld3);
+    $alreadyupvoted1 = mysqli_fetch_assoc($resultd1)['COUNT(*)'];
+    $alreadydownvoted1 = mysqli_fetch_assoc($resultd2)['COUNT(*)'];
+    $removedvote1 = mysqli_fetch_assoc($resultd3)['COUNT(*)'];
+    if($alreadydownvoted1 > 0){
+        $sql = "UPDATE votes SET vote = 0 WHERE yak = $yakid";
+        $sql2 = "UPDATE yaks SET score = score + 1 WHERE id = $yakid";
+        $sql3 = "UPDATE user SET karma = karma - 1 WHERE id = $id";
+        if(mysqli_query($conn, $sql) && mysqli_query($conn, $sql2) && mysqli_query($conn, $sql3)){
+            echo 'you removed your vote';
+            header("Refresh:0");
+        } else {
+            echo 'Query error: ' . mysqli_error($conn);
+        }
+    } elseif($alreadyupvoted1 > 0) {
+        $sql = "UPDATE votes SET vote = -1 WHERE yak = $yakid";
+        $sql2 = "UPDATE yaks SET score = score - 2 WHERE id = $yakid";
+        if(mysqli_query($conn, $sql) && mysqli_query($conn, $sql2)){
             echo 'you downvoted this yak';
             header("Refresh:0");
         } else {
             echo 'Query error: ' . mysqli_error($conn);
         }
-    } elseif($alreadyupvoted2 > 0) {
-        $sqld5 = "UPDATE votes SET vote = -1 WHERE yak = $yakid";
-        $sqld6 = "UPDATE yaks SET score = score - 2 WHERE id = $yakid";
-        if(mysqli_query($conn, $sqld5) && mysqli_query($conn, $sqld6)){
+    } elseif($removedvote1 > 0) {
+        $sql = "UPDATE votes SET vote = -1 WHERE yak = $yakid";
+        $sql2 = "UPDATE yaks SET score = score - 1 WHERE id = $yakid";
+        $sql3 = "UPDATE user SET karma = karma + 1 WHERE id = $id";
+        if(mysqli_query($conn, $sql) && mysqli_query($conn, $sql2) && mysqli_query($conn, $sql3)){
             echo 'you downvoted this yak';
             header("Refresh:0");
         } else {
             echo 'Query error: ' . mysqli_error($conn);
         }
     } else {
-        $sqld7 = "INSERT INTO votes(user,yak,vote) VALUES('$id','$yakid','-1')";
-        $sqld8 = "UPDATE yaks SET score = score - 1 WHERE id = $yakid";
-        if(mysqli_query($conn, $sqld7) && mysqli_query($conn, $sqld8)){
+        $sql = "INSERT INTO votes(user,yak,vote) VALUES('$id','$yakid','-1')";
+        $sql2 = "UPDATE yaks SET score = score - 1 WHERE id = $yakid";
+        $sql3 = "UPDATE user SET karma = karma + 1 WHERE id = $id";
+        if(mysqli_query($conn, $sql) && mysqli_query($conn, $sql2) && mysqli_query($conn, $sql3)){
             echo 'you downvoted this yak';
             header("Refresh:0");
         } else {
