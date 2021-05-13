@@ -10,7 +10,8 @@ if(isset($_POST['submit'])){
         $newyak = mysqli_real_escape_string($conn, $_POST['yakentry']);
         $id = $_SESSION['id']; // this grabs the id of the logged in user
         $sql = "INSERT INTO yaks(yak,created_by,score) VALUES('$newyak','$id','0')";
-        if(mysqli_query($conn, $sql)){
+        $sql2 = "UPDATE user SET karma = karma + 1 WHERE id = $id";
+        if(mysqli_query($conn, $sql) && mysqli_query($conn, $sql2)){
           header('Location: index.php');
         } else {
           echo 'Query error: ' . mysqli_error($conn);
