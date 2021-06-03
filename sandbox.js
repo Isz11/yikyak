@@ -1,51 +1,7 @@
-// const upBtn = document.querySelector('.up_btn');
-// let upIcon = document.querySelector('#up_icon');
-//
-// const downBtn = document.querySelector('.down_btn');
-// let downIcon = document.querySelector('#down_icon');
-
-// let clickedUp = false;
-// let clickedDown = false;
-//
-// upBtn.addEventListener("click", () => {
-//     if (!clickedUp) {
-//         clickedUp = true;
-//         clickedDown = false;
-//         downIcon.innerHTML = `<i class="fas fa-angle-down"></i>`;
-//         upIcon.innerHTML = `<i class="fas fa-chevron-circle-up"></i>`;
-//     } else {
-//         clickedUp = false;
-//         upIcon.innerHTML = `<i class="fas fa-angle-up"></i>`;
-//     }
-// });
-//
-// downBtn.addEventListener("click", () => {
-//     if (!clickedDown) {
-//         clickedDown = true;
-//         clickedUp = false;
-//         upIcon.innerHTML = `<i class="fas fa-angle-up"></i>`;
-//         downIcon.innerHTML = `<i class="fas fa-chevron-circle-down"></i>`;
-//     } else {
-//         clickedDown = false;
-//         downIcon.innerHTML = `<i class="fas fa-angle-down"></i>`;
-//     }
-// });
-
-// let yakscores = document.querySelectorAll('.votescore');
-// let yakscoresarray = Array.from(yakscores);
-// console.log(yakscoresarray);
-// yakscores.forEach(yakscore => {
-//     let yakid = `${yakscore.dataset.id}`;
-//     let yakvote = `${yakscore.textContent}`;
-//     //let score = document.getElementById(`${yakscore.dataset.id}`);
-//     let yakscoresarray = Array.from(yakscore);
-//     console.log(yakscoresarray);
-// });
-
-
 const yaksup = document.querySelectorAll('.up_btn');
 yaksup.forEach(yak => {
     yak.addEventListener('click', yakUpVote);
+
 
     function yakUpVote(){ // put an 'e' in the brackets and uncomment to cancel behaviour such as form submission.
         //e.preventDefault();
@@ -53,7 +9,6 @@ yaksup.forEach(yak => {
 
         let yakid = `${this.dataset.id}`;
         let score = document.getElementById(`scoreOf${this.dataset.id}`);
-        score.textContent ++;
 
         let xhr = new XMLHttpRequest();
         let params = `yakid=${this.dataset.id}&id=${userid}`;    // yakid='15.'&id='.55
@@ -65,6 +20,22 @@ yaksup.forEach(yak => {
         }
         xhr.send(params);
         console.log(params);
+
+        let upIcon = document.getElementById(`upVoted${yakid}`);
+        let downIcon = document.getElementById(`downVoted${yakid}`);
+
+        if (upIcon.innerHTML.includes(`class="fas fa-angle-up"`) && downIcon.innerHTML.includes(`class="fas fa-angle-down"`)) {
+            upIcon.innerHTML = `<i class="fas fa-chevron-circle-up"></i>`;
+            score.textContent ++;
+        } else if (upIcon.innerHTML.includes(`class="fas fa-angle-up"`) && downIcon.innerHTML.includes(`class="fas fa-chevron-circle-down"`)) {
+            upIcon.innerHTML = `<i class="fas fa-chevron-circle-up"></i>`;
+            downIcon.innerHTML = `<i class="fas fa-angle-down"></i>`;
+            score.textContent ++;
+            score.textContent ++;
+        } else {
+            upIcon.innerHTML = `<i class="fas fa-angle-up"></i>`;
+            score.textContent --;
+        };
     }
 });
 
@@ -77,7 +48,6 @@ yaksdown.forEach(yak => {
 
         let yakid = `${this.dataset.id}`;
         let score = document.getElementById(`scoreOf${this.dataset.id}`);
-        score.textContent --;
 
         let xhr = new XMLHttpRequest();
         let params = `yakid=${this.dataset.id}&id=${userid}`;    // yakid='15.'&id='.55
@@ -89,5 +59,21 @@ yaksdown.forEach(yak => {
         }
         xhr.send(params);
         console.log(params);
+
+        let upIcon = document.getElementById(`upVoted${yakid}`);
+        let downIcon = document.getElementById(`downVoted${yakid}`);
+
+        if (upIcon.innerHTML.includes(`class="fas fa-angle-up"`) && downIcon.innerHTML.includes(`class="fas fa-angle-down"`)) {
+            downIcon.innerHTML = `<i class="fas fa-chevron-circle-down"></i>`;
+            score.textContent --;
+        } else if (downIcon.innerHTML.includes(`class="fas fa-angle-down"`) && upIcon.innerHTML.includes(`class="fas fa-chevron-circle-up"`)) {
+            downIcon.innerHTML = `<i class="fas fa-chevron-circle-down"></i>`;
+            upIcon.innerHTML = `<i class="fas fa-angle-up"></i>`;
+            score.textContent --;
+            score.textContent --;
+        } else {
+            downIcon.innerHTML = `<i class="fas fa-angle-down"></i>`;
+            score.textContent ++;
+        };
     }
 });

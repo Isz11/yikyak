@@ -49,20 +49,43 @@ if(isset($_SESSION["loggedin"])){
             <?php foreach($yaks as $yak):
                 $yakid = $yak['id'];
                 $yakscore = intval($yak['score']);
+
                 // count comments for each yak
                 $sql = "SELECT COUNT(*) FROM comments WHERE yak = $yakid";
                 $result = mysqli_query($conn, $sql);
                 $comments = mysqli_fetch_assoc($result)['COUNT(*)'];
 
+                if(isset($_SESSION["loggedin"])){
+                // detect whether user has already upvoted and change upvote icon accordingly
+                    $sqlu = "SELECT COUNT(*) FROM votes WHERE user = $id AND yak = $yakid AND vote = 1";
+                    $resultu = mysqli_query($conn, $sqlu);
+                    $alreadyupvoted = mysqli_fetch_assoc($resultu)['COUNT(*)'];
+                    if($alreadyupvoted > 0){
+                        $up_icon = "fas fa-chevron-circle-up";
+                    } else {
+                        $up_icon = "fas fa-angle-up";
+                    }
+
+                    // detect whether user has already downvoted and change upvote icon accordingly
+                    $sqld = "SELECT COUNT(*) FROM votes WHERE user = $id AND yak = $yakid AND vote = -1";
+                    $resultd = mysqli_query($conn, $sqld);
+                    $alreadydownvoted = mysqli_fetch_assoc($resultd)['COUNT(*)'];
+                    if($alreadydownvoted > 0){
+                        $down_icon = "fas fa-chevron-circle-down";
+                    } else {
+                        $down_icon = "fas fa-angle-down";
+                    }
+                }
+
                 echo htmlspecialchars($yak['yak']); ?><br><br></span>
                 <?php if(isset($_SESSION["loggedin"])){ ?>
 
                     <button data-id="<?php echo $yak['id']; ?>" class ="up_btn" type="button" name="upvote">
-                        <span id="up_icon"><i class="fas fa-angle-up"></i></span>
+                        <span id="<?php echo 'upVoted'.$yak['id'] ?>"><i class="<?php echo $up_icon; ?>"></i></span>
                     </button>
 
                     <button data-id="<?php echo $yak['id']; ?>" class ="down_btn" type="button" name="downvote">
-                        <span id="down_icon"><i class="fas fa-angle-down"></i></span>
+                        <span id="<?php echo 'downVoted'.$yak['id'] ?>"><i class="<?php echo $down_icon; ?>"></i></span>
                     </button>
                 <?php } ?>
                 <span id="<?php echo 'scoreOf'.$yak['id']; ?>" class="votescore">
