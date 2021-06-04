@@ -1,11 +1,62 @@
+div {
+    align: center;
+}
+h4 {
+    text-align: center;
+}
+
 li {
     list-style-type: none;
 }
 .yak-layout {
-    align: center
+
     border: 1px solid lightgray;
-    background-color: gray;
-    display: block;
-    margin: auto
+    background-color: white;
+    margin: auto;
     max-width: 500px;
+
+}
+.individual-yak {
+    padding: 10px;
+    text-align: left;
+    color: #575757;
+}
+.time-ago {
+    font-size: 12px;
+    align: left;
+    color: #38d9c6;
+}
+.comments {
+    font-size: 12px;
+    align: center;
+    color: lightgray;
+    text-decoration: none;
+}
+.vote-per-yak {
+    /* float: right; */
+    align-content: right;
+    /* position: relative; */
+}
+.up_btn {
+    border: 0;
+    float: right;
+    top: 0;
+    right: 0;
+    position: relative;
+}
+.down_btn {
+    border: 0;
+    float: right;
+}
+.votescore {
+    border: 0;
+    float: right;
+}
+
+
+textarea {
+    width: 400px;
+    height: 80px;
+    resize: none;
+    background-color: white
 }
