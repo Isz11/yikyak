@@ -24,21 +24,22 @@
   }
 </style>
   <head>
-    <meta charset="utf-8">
-    <title>Yik Yak</title>
-    <?php
-    // session_start();
+      <script src="https://kit.fontawesome.com/12e0829d40.js" crossorigin="anonymous"></script>
+      <meta charset="utf-8">
+      <title>Yik Yak</title>
+      <?php
+      // session_start();
 
-    if(isset($_SESSION["loggedin"])){
-      echo 'Welcome ' . $_SESSION['name'] . '!'; ?>
-      <a href="logout.php">Logout</a><br>
-      <a href="profile.php">Your profile</a>
-    <?php } else { ?>
+      if(isset($_SESSION["loggedin"])){
+          echo 'Welcome ' . $_SESSION['name'] . '!'; ?>
+          <a href="logout.php">Logout</a><br>
+          <a href="profile.php">Your profile</a>
+      <?php } else { ?>
       <a href="login.php">Login</a>
       <a href="register.php">Register</a>
-    <?php } ?>
-    <a href="index.php">
+      <?php } ?>
+      <a href="index.php">
       <img alt="Qries" src="images/yikyaklogo1" class="logo">
-    </a>
+      </a>
   </head>
   <body>
