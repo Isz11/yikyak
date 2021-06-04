@@ -31,22 +31,22 @@ if(isset($_SESSION["loggedin"])){
 
     <?php
     if(isset($_SESSION["loggedin"])){ ?>
-        <div align='center'><a href="postyak.php">Post a yak?</a></div>
+        <div><a href="postyak.php">Post a yak?</a></div>
     <?php } else { ?>
-        <div align='center'>Please login to post a yak</div>
+        <div>Please login to post a yak</div>
     <?php } ?>
 
-    <div align='center'>
+    <div>
         <form class="" action="index.php" method="post">
             <button type="submit" name="sortnew">New</button>
             <button type="submit" name="sorttop">Top</button>
         </form>
     </div>
     <div id="status"></div>
-    <h4 style="text-align:center">Yaks</h4>
-    <ul class ="yak-layout">
-        <div>
-            <?php foreach($yaks as $yak):
+    <h4>Yaks</h4>
+        <?php foreach($yaks as $yak): ?>
+            <div class ="yak-layout">
+                <?php
                 $yakid = $yak['id'];
                 $yakscore = intval($yak['score']);
 
@@ -75,28 +75,36 @@ if(isset($_SESSION["loggedin"])){
                     } else {
                         $down_icon = "fas fa-angle-down";
                     }
-                }
+                } ?>
+                <div>
+                    <span class="individual-yak">
+                        <?php echo htmlspecialchars($yak['yak']); ?>
+                    </span>
+                    <span class="vote-per-yak">
+                        <?php if(isset($_SESSION["loggedin"])){ ?>
+                            <button data-id="<?php echo $yak['id']; ?>" class ="up_btn" type="button" name="upvote">
+                                <span id="<?php echo 'upVoted'.$yak['id'] ?>"><i class="<?php echo $up_icon; ?>"></i></span>
+                            </button><br>
 
-                echo htmlspecialchars($yak['yak']); ?><br><br></span>
-                <?php if(isset($_SESSION["loggedin"])){ ?>
+                            <span id="<?php echo 'scoreOf'.$yak['id']; ?>" class="votescore">
+                                <?php echo $yakscore; ?>
+                            </span><br>
 
-                    <button data-id="<?php echo $yak['id']; ?>" class ="up_btn" type="button" name="upvote">
-                        <span id="<?php echo 'upVoted'.$yak['id'] ?>"><i class="<?php echo $up_icon; ?>"></i></span>
-                    </button>
-
-                    <button data-id="<?php echo $yak['id']; ?>" class ="down_btn" type="button" name="downvote">
-                        <span id="<?php echo 'downVoted'.$yak['id'] ?>"><i class="<?php echo $down_icon; ?>"></i></span>
-                    </button>
-                <?php } ?>
-                <span id="<?php echo 'scoreOf'.$yak['id']; ?>" class="votescore">
-                    <?php echo $yakscore; ?>
-                </span><br><?php
-                    echo get_time_ago(strtotime($yak['created'])); ?><br><?php
-                    echo $comments;  ?>
-                    <a href="yakcomments.php?id=<?php echo $yak['id'] ?>">Comments</a><br><br><br><br>
-            <?php endforeach; ?>
-        </div>
-    </ul>
+                            <button data-id="<?php echo $yak['id']; ?>" class ="down_btn" type="button" name="downvote">
+                                <span id="<?php echo 'downVoted'.$yak['id'] ?>"><i class="<?php echo $down_icon; ?>"></i></span>
+                            </button><br>
+                        <?php } ?>
+                    </div>
+                    <span class="time-ago">
+                        <?php echo get_time_ago(strtotime($yak['created'])); ?>
+                    </span>
+                    <span class="comments">
+                        <?php echo $comments; ?>
+                        <a class="comments" href="yakcomments.php?id=<?php echo $yak['id'] ?>">replies</a>
+                    </span>
+                </div>
+            </span>
+        <?php endforeach; ?>
     <script type="text/javascript">
         let userid = "<?php echo $id; ?>";
     </script>
