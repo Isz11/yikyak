@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\YakController;
+use App\Http\Controllers\ReplyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +16,17 @@ use App\Http\Controllers\YakController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/yaks');
 });
 
 Route::get('/yaks', [YakController::class, 'index'])->name('yaks.index');
 Route::get('/yaks/newyak', [YakController::class, 'create'])->name('yaks.create')->middleware('auth');
 Route::post('/yaks', [YakController::class, 'store'])->name('yaks.store');
+Route::get('/yaks/{id}', [YakController::class, 'show'])->name('yaks.show');
+Route::delete('/yaks/{id}', [YakController::class, 'destroy'])->name('yaks.destroy')->middleware('auth');;
+
+Route::post('/yaks/{id}', [ReplyController::class, 'store'])->name('replies.store');
+
 
 Auth::routes();
 
