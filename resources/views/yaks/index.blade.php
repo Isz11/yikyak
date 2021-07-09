@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
 <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
     <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
         <p>{{ session('mssg') }}</p>
@@ -11,18 +13,31 @@
         @foreach($yaks as $yak)
             <div class="">
                 <div class="">
+                    <p>Posted by
+                    @foreach ($users as $user)
+                        @if ($user->id == $yak->user)
+                            {{ $user->name }}
+                            @break
+                        @endif
+                    @endforeach
+                    </p>
+
                     <h3><a href="/yaks/{{ $yak->id }}">{{ $yak->yak }}</a></h3>
                 </div>
                 <div class="">
                     {{ get_time_ago($yak->created_at) }} ---
-                    <?php
-                        $reply_count = array_count_values(array_column($replies, 'yak'))[$yak->id]; // how can I do this in blade syntax
-                    ?>
 
-                    @if ($reply_count == 1)
-                        {{ $reply_count }} reply
+                    @php $count = 0 @endphp
+                    @foreach($replies as $reply)
+                        @if ($reply->yak == $yak->id)
+                            @php $count++ @endphp
+                        @endif
+                    @endforeach
+
+                    @if ($count == 1)
+                        {{ $count }} reply
                     @else
-                        {{ $reply_count }} replies
+                        {{ $count }} replies
                     @endif
 
                     <br>

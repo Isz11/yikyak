@@ -5,16 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Yak;
 use App\Models\Replies;
+use App\Models\User;
 
 class YakController extends Controller
 {
     public function index() {
         $yaks = Yak::orderBy('created_at','desc')->get();
         $replies = Replies::all();
-        // $replies = Replies::where('yak', $id)->count();
+        $users = User::all();
+        // $replies = Replies::where('yak', 4)->count();
+
+
         return view('yaks.index', [
             'yaks' => $yaks,
-            'replies' => $replies->toArray()
+            'replies' => $replies,
+            'users' => $users
         ]);
     }
 
@@ -35,9 +40,12 @@ class YakController extends Controller
 
     public function show($id) {
         $yak = Yak::findOrFail($id);
-        $replies = Replies::orderBy('created_at','desc')->where('yak', $id)->get();
+        $replies = Replies::orderBy('created_at','asc')->where('yak', $id)->get();
 
-        return view('yaks.show', ['yak'=> $yak,'replies'=> $replies]);
+        return view('yaks.show', [
+            'yak'=> $yak,
+            'replies'=> $replies
+        ]);
     }
 
     public function destroy($id) {
