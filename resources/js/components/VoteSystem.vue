@@ -26,7 +26,7 @@
 
         methods: {
             vote(message) {
-                // alert(`You ${message}voted this yak`); THE YAKSCORE SHOULD BE A NUMBER BUT IS A STRING, FIX
+                // alert(`You ${message}voted this yak`);
                 let score = document.getElementById('score');
                 if (message == 'up') {
                     console.log(`Upvote has been clicked on yak ${this.yakId} by ${this.userId}`);
