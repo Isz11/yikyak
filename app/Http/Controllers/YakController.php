@@ -30,7 +30,7 @@ class YakController extends Controller
     public function store() {
         $yak = new Yak();
         $yak->yak = request('yak');
-        $yak->user = auth()->id();
+        $yak->user_id = auth()->id();
         $yak->score = 0;     // maybe put a default value for this column in the database
 
         $yak->save();
@@ -40,7 +40,7 @@ class YakController extends Controller
 
     public function show($id) {
         $yak = Yak::findOrFail($id);
-        $replies = Replies::orderBy('created_at','asc')->where('yak', $id)->get();
+        $replies = Replies::orderBy('created_at','asc')->where('yak_id', $id)->get();
 
         return view('yaks.show', [
             'yak'=> $yak,

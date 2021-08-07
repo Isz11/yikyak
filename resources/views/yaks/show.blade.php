@@ -7,7 +7,7 @@
             <p>{{ get_time_ago($yak->created_at) }}</p>
             <a href="/yaks">Back to all yaks</a>
             @auth
-                @if( Auth::user()->id == $yak->user )
+                @if( Auth::user()->id == $yak->user_id )
                     <form class="" action="{{ route('yaks.destroy', $yak->id) }}" method="post">
                         @csrf
                         @method('DELETE')

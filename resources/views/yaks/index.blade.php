@@ -1,49 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
-
-
-
-<div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-    <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+<div class="">
+    <div class="">
         <p>{{ session('mssg') }}</p>
-
-        <h4>All the yaks</h4><br>
+        <h4 class="yak-title">All the yaks</h4><br>
 
         @foreach($yaks as $yak)
-            <div class="">
-                <div class="">
-                    <p>Posted by
-                    @foreach ($users as $user)
-                        @if ($user->id == $yak->user)
-                            {{ $user->name }}
-                            @break
-                        @endif
-                    @endforeach
-                    </p>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="row">
+                                <div class="card-body col-xs-4">
+                                    <h6>Posted by {{ $yak->user->name }}</h6>
+                                    <h3><a href="/yaks/{{ $yak->id }}">{{ $yak->yak }}</a></h3>
 
-                    <h3><a href="/yaks/{{ $yak->id }}">{{ $yak->yak }}</a></h3>
-                </div>
-                <div class="">
-                    {{ get_time_ago($yak->created_at) }} ---
+                                    {{ get_time_ago($yak->created_at) }} ---
 
-                    @php $count = 0 @endphp
-                    @foreach($replies as $reply)
-                        @if ($reply->yak == $yak->id)
-                            @php $count++ @endphp
-                        @endif
-                    @endforeach
+                                    @php $count = 0 @endphp
+                                    @foreach($replies as $reply)
+                                        @if ($reply->yak_id == $yak->id)
+                                            @php $count++ @endphp
+                                        @endif
+                                    @endforeach
 
-                    @if ($count == 1)
-                        {{ $count }} reply
-                    @else
-                        {{ $count }} replies
-                    @endif
+                                    @if ($count == 1)
+                                        {{ $count }} reply
+                                    @else
+                                        {{ $count }} replies
+                                    @endif
 
-                    <br>
-                </div>
-                <div class="">
-                    Yak score: {{ $yak->score }}
+                                    <br>
+                                </div>
+                                <div id="app" class="col-xs-4">
+                                    @auth
+                                        <!-- <p>The logged in user is {{ auth()->user()->id }} and this yak is id:{{ $yak->id }}</p> -->
+                                        <vote-system yak-id="{{ $yak->id }}" yak-score="{{ $yak->score }}" user-id="{{ auth()->user()->id }}"></vote-system>
+                                    @endauth
+                                    @guest
+                                        <p>Please login to vote on a yak</p>
+                                    @endguest
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -54,4 +55,6 @@
 
 </div>
 <a href="/yaks/newyak">Create a yak</a>
+
+
 @endsection

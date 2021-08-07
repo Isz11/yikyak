@@ -11,8 +11,8 @@ class ReplyController extends Controller
     public function store($id) {
         $reply = new Replies();
         $reply->reply = request('reply');
-        $reply->user = auth()->id();
-        $reply->yak = $id;
+        $reply->user_id = auth()->id();
+        $reply->yak_id = $id;
 
         $reply->save();
 
