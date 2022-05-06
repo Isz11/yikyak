@@ -28,6 +28,8 @@ Route::delete('/yaks/{id}', [YakController::class, 'destroy'])->name('yaks.destr
 Route::post('/yaks/{id}', [ReplyController::class, 'store'])->name('replies.store');
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => ['auth', 'verified']], function() {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
