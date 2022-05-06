@@ -69,6 +69,9 @@
                                     <a class="dropdown-item" href="{{ route('home') }}">
                                         {{ __('View Profile') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('communities.index') }}">
+                                        {{ __('Find your University community') }}
+                                    </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
