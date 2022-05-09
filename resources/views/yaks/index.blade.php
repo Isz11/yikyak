@@ -14,7 +14,7 @@
                 <div class="card">
                     <div class="row">
                         <div class="card-body col-xs-4">
-                            <h6>Posted by {{ $yak->user->name }}</h6>
+                            <h6>Posted by {{ $yak->user->username }}</h6>
                             <h3><a href="/yaks/{{ $yak->id }}">{{ $yak->yak }}</a></h3>
 
                             {{ get_time_ago($yak->created_at) }} ---
