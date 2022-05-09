@@ -9,6 +9,11 @@ class Yak extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'yak',
+        'score',
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }

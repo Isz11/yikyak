@@ -31,7 +31,7 @@ class YakController extends Controller
         $yak = new Yak();
         $yak->yak = request('yak');
         $yak->user_id = auth()->id();
-        $yak->score = 0;     // maybe put a default value for this column in the database
+        $yak->score = 0;
 
         $yak->save();
 
