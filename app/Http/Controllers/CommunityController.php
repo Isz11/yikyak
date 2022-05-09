@@ -16,8 +16,8 @@ class CommunityController extends Controller
         ]);
     }
 
-    public function show($id) {
-        $community = Community::findOrFail($id);
+    public function show($slug) {
+        $community = Community::where('slug', $slug)->firstOrFail();
         // $yaks = Yak::orderBy('created_at','asc')->where('community_id', $id)->get();
 
         return view('communities.show', [

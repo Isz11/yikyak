@@ -13,5 +13,11 @@ class Community extends Model
         'name',
         'latitude',
         'longitude',
+        'slug',
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

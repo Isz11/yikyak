@@ -29,7 +29,7 @@ Route::delete('/yaks/{id}', [YakController::class, 'destroy'])->name('yaks.destr
 Route::post('/yaks/{id}', [ReplyController::class, 'store'])->name('replies.store');
 
 Route::get('/communities', [CommunityController::class, 'index'])->name('communities.index');
-Route::get('/communities/{id}', [CommunityController::class, 'show'])->name('communities.show');
+Route::get('/communities/{slug}', [CommunityController::class, 'show'])->name('communities.show');
 
 Auth::routes(['verify' => true]);
 

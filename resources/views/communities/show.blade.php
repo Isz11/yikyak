@@ -13,7 +13,7 @@
                         Recent yaks from {{ $community->name }}
                     </div>
                     <div>
-                        Will sort this out later on
+                        Will sort this out later on... or will I
                     </div>
                 </div>
                 <a href="/communities">Back to all communities</a>
