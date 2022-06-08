@@ -15,8 +15,8 @@ class CreateRepliesTable extends Migration
     {
         Schema::create('replies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('yak_id');
-            $table->unsignedInteger('user_id');
+            $table->foreignId('yak_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('reply');
             $table->timestamps();
         });

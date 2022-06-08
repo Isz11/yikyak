@@ -15,9 +15,10 @@ class CreateVotesTable extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
-            $table->string('yak');
-            $table->string('user');
-            $table->string('vote');
+            $table->foreignId('yak_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->smallInteger('vote');
+            $table->timestamps();
         });
     }
 
