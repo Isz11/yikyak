@@ -17,7 +17,7 @@ class CreateYaksTable extends Migration
             $table->id();
             $table->string('yak');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('score');
+            $table->Integer('score');
             $table->timestamps();
         });
     }
