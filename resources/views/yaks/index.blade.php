@@ -18,22 +18,7 @@
                         </div>
 
                         <div class="row">
-
-                            <!-- displaying the arrows and score -->
-                            <div id="app" class="col-2 align-self-start">
-                                <div>
-                                    <a href="">
-                                        <i class="fa fa-2x fa-sort-asc" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                                <div>{{ $yak->score }}</div>
-                                <div id="app" class="col-2 align-self-start">
-                                    <div>
-                                        <a href="">
-                                            <i class="fa fa-2x fa-sort-desc" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                            </div>
+                            @livewire('yak-scores', ['yak' => $yak])
                         </div>
                         <div>
                             <div class="col align-self-end">
