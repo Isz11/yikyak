@@ -4,19 +4,44 @@
 <div class="container">
     <div class="row justify-content-center">
         <p>{{ session('mssg') }}</p>
-        <div>
+        <div class="row">
             <h4 class="yak-title">All the yaks</h4><br>
         </div>
-        <div>
+    <div>
         @foreach($yaks as $yak)
             
-            <div class="col-md-8">
+            <div class="col-md-20">
                 <div class="card">
                     <div class="row">
-                        <div class="card-body col-xs-4">
+                        <div class="row justify-content-start">
                             <h6>Posted by {{ $yak->user->username }}</h6>
-                            <h3><a href="/yaks/{{ $yak->id }}">{{ $yak->yak }}</a></h3>
+                        </div>
 
+                        <div class="row">
+
+                            <!-- displaying the arrows and score -->
+                            <div id="app" class="col-2 align-self-start">
+                                <div>
+                                    <a href="">
+                                        <i class="fa fa-2x fa-sort-asc" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                                <div>{{ $yak->score }}</div>
+                                <div id="app" class="col-2 align-self-start">
+                                    <div>
+                                        <a href="">
+                                            <i class="fa fa-2x fa-sort-desc" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="col align-self-end">
+                                <h4><a href="/yaks/{{ $yak->id }}">{{ $yak->yak }}</a></h4>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-start">
                             {{ get_time_ago($yak->created_at) }} ---
 
                             @php $count = 0 @endphp
@@ -31,15 +56,6 @@
                             @else
                                 {{ $count }} replies
                             @endif
-                        </div>
-                        <div id="app" class="col-xs-4">
-                            @auth
-                                <!-- <p>The logged in user is {{ auth()->user()->id }} and this yak is id:{{ $yak->id }}</p> -->
-                                <vote-system yak-id="{{ $yak->id }}" yak-score="{{ $yak->score }}" user-id="{{ auth()->user()->id }}"></vote-system>
-                            @endauth
-                            @guest
-                                <p>Please login to vote on a yak</p>
-                            @endguest
                         </div>
                     </div>
                 </div>
