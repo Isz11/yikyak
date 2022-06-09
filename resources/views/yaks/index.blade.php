@@ -45,7 +45,7 @@
             </div>
         @endforeach
         </div>
-        <div>
+        <div class="row justify-content-center">
             <a href="/yaks/newyak">Create a yak</a>
         </div>
     </div>
