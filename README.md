@@ -10,3 +10,18 @@ Note - seems the seeders need to be ran in a specific order or one doesn't work.
 
 Notes for later
 - requires livewire
+
+To do
+- Update the show yak page
+    - Add the livewire vote component
+    - Update the css to look similar to homepage
+- Add seeder to generate some replies for yaks
+- Be able to view your own posts on your profile
+- Be able to sort the homepage yaks by new / most popular in the last 7 days
+- Add notifications
+    - You have received 5, 10, 25, 50, 100 etc votes on your yak
+    - When someone replies to your yak
+- Add location data
+    - Add an option to post your yak in a community, have drop down list of all universities on post yak page for example
+    - Add longitude and latitude of user who posted yak to each yak database entry
+    - Users can also sort by yaks within a certain radius of themselves
