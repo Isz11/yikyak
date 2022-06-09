@@ -1,6 +1,6 @@
 Yikyak inspired social media copy
 
-![](img/homepage.png)
+![](public/img/homepage.png)
 
 Login into local mysql via terminal. `mysql -u root`  
 Create a database called `create database yikyak;`  
