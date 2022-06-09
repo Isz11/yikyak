@@ -16,8 +16,8 @@ class CreateYaksTable extends Migration
         Schema::create('yaks', function (Blueprint $table) {
             $table->id();
             $table->string('yak');
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('score');
+            $table->foreignId('user_id');
+            $table->Integer('score');
             $table->timestamps();
         });
     }

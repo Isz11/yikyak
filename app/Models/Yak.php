@@ -20,4 +20,7 @@ class Yak extends Model
     public function yaks() {
         return $this->hasMany(Reply::class);
     }
+    public function yakVotes() {
+        return $this->hasMany(Vote::class);
+    }
 }
