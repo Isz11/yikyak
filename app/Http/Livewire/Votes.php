@@ -45,39 +45,61 @@ class Votes extends Component
             ->where('user_id', auth()->id())
             ->first();
 
-        if ($existing_vote != null) {
-            if ($existing_vote->vote == $vote) {
-                $this->total_score += $vote * -1;
-                Vote::where('id', $existing_vote->id)
-                ->update([
-                    'vote' => 0
-                ]);
-                $this->arrow_up = 'black';
-                $this->arrow_down = 'black';
-            } else {
-                $this->total_score += $vote - $existing_vote->vote;
-                Vote::where('id', $existing_vote->id)
-                ->update([
-                    'vote' => $vote
-                ]);
-                if ($vote === 1) {
-                    $this->arrow_up = 'orange';
-                    $this->arrow_down = 'black';
-                } else {
-                    $this->arrow_up = 'black';
-                    $this->arrow_down = 'orange';
-                }
-            }
-        } else {
+        if ($existing_vote == null || $existing_vote->vote == 0) {
             $this->total_score += $vote;
-            Vote::create([
-                'yak_id' => $this->yak->id,
-                'user_id' => auth()->id(),
-                'vote' => $vote
-            ]);
+
             if ($vote === 1) {
                 $this->arrow_up = 'orange';
             } else {
+                $this->arrow_down = 'orange';
+            }
+
+            Yak::where('id', $this->yak->id)
+                ->update([
+                    'score' => $this->total_score
+            ]);
+            
+            if ($existing_vote->vote === 0) {
+                Vote::where('id', $existing_vote->id)
+                    ->update([
+                        'vote' => $vote
+                ]);
+            } else {
+                Vote::create([
+                    'yak_id' => $this->yak->id,
+                    'user_id' => auth()->id(),
+                    'vote' => $vote
+                ]);
+            }
+            
+
+        } elseif ($existing_vote->vote == $vote) {
+            $this->total_score += $vote * -1;
+            Vote::where('id', $existing_vote->id)
+                ->update([
+                    'vote' => 0
+            ]);
+            Yak::where('id', $this->yak->id)
+                ->update([
+                    'score' => $this->total_score
+            ]);
+            $this->arrow_up = 'black';
+            $this->arrow_down = 'black';
+        } else {
+            $this->total_score += $vote - $existing_vote->vote;
+            Vote::where('id', $existing_vote->id)
+                ->update([
+                    'vote' => $vote
+            ]);
+            Yak::where('id', $this->yak->id)
+                ->update([
+                    'score' => $this->total_score
+            ]);
+            if ($vote === 1) {
+                $this->arrow_up = 'orange';
+                $this->arrow_down = 'black';
+            } else {
+                $this->arrow_up = 'black';
                 $this->arrow_down = 'orange';
             }
         }
