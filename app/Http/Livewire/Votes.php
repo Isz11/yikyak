@@ -59,16 +59,16 @@ class Votes extends Component
                     'score' => $this->total_score
             ]);
             
-            if ($existing_vote->vote === 0) {
-                Vote::where('id', $existing_vote->id)
-                    ->update([
-                        'vote' => $vote
-                ]);
-            } else {
+            if ($existing_vote == null) {
                 Vote::create([
                     'yak_id' => $this->yak->id,
                     'user_id' => auth()->id(),
                     'vote' => $vote
+                ]);
+            } else {
+                Vote::where('id', $existing_vote->id)
+                    ->update([
+                        'vote' => $vote
                 ]);
             }
             
