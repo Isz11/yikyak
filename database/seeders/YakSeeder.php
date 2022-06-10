@@ -15,7 +15,7 @@ class YakSeeder extends Seeder
     public function run()
     {
         Yak::create([
-            'yak' => 'I just went to Subway and a nice meaty footlong',
+            'yak' => 'I just went to Subway and had a nice meaty footlong',
             'user_id' => 1,
             'score' => 5,
         ]);
