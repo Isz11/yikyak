@@ -1,10 +1,41 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-    <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-        <h2>{{ $yak->yak }}</h2>
-            <p>{{ get_time_ago($yak->created_at) }}</p>
+<div class="container">
+    <div class="col-md-20">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-1">
+                        @livewire('votes', ['yak' => $yak])
+                    </div>
+                    <div class="col" style="color: gray">
+                        <div class="row">
+                            <h6>Posted by {{ $yak->user->username }}</h6>
+                        </div>
+                        <div class="row">
+                            <h4>{{ $yak->yak }}</h4>
+                        </div>
+                        <div class="row">
+                            {{ get_time_ago($yak->created_at) }} ---
+
+                            @php $count = 0 @endphp
+                            @foreach($replies as $reply)
+                                @if ($reply->yak_id == $yak->id)
+                                    @php $count++ @endphp
+                                @endif
+                            @endforeach
+
+                            @if ($count == 1)
+                                {{ $count }} reply
+                            @else
+                                {{ $count }} replies
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
             <a href="/yaks">Back to all yaks</a>
             @auth
                 @if( Auth::user()->id == $yak->user_id )
@@ -17,16 +48,20 @@
             @endauth
             <br><br><br>
             @foreach($replies as $reply)
-                <div class="">
-                    <div class="">
-                        {{ $reply->reply }}
-                    </div>
-                    <div class="">
-                        {{ get_time_ago($reply->created_at) }}
-                        <br>
+                <div>
+                    <div class="col">
+                        <div class="row">
+                            <h6>Posted by {{ $reply->user->username }}</h6>
+                        </div>
+                        <div class="row">
+                            {{ $reply->reply }}
+                        </div>
+                        <div class="row">
+                            {{ get_time_ago($reply->created_at) }}
+                            <br>
+                        </div>
                     </div>
                 </div>
-
                 <br><br>
             @endforeach
             @auth

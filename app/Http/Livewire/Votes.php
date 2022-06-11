@@ -11,8 +11,9 @@ class Votes extends Component
 
     public $yak;
     public $total_score;
-    public $arrow_up = 'black';
-    public $arrow_down = 'black';
+    public $arrow_up = 'lightgray';
+    public $arrow_down = 'lightgray';
+    public $vote_colour = 'gray';
 
     public function mount($yak)
     {
@@ -23,14 +24,20 @@ class Votes extends Component
             ->where('user_id', auth()->id())
             ->where('vote', 1)
             ->first() != null) {
-            $this->arrow_up = 'orange';
+            $this->arrow_up = 'limegreen';
         }
 
         if (Vote::where('yak_id', $this->yak->id)
             ->where('user_id', auth()->id())
             ->where('vote', -1)
             ->first() != null) {
-            $this->arrow_down = 'orange';
+            $this->arrow_down = 'red';
+        }
+
+        if ($this->total_score > 0) {
+            $this->vote_colour = 'limegreen';
+        } elseif ($this->total_score < 0) {
+            $this->vote_colour = 'red';
         }
     }
 
@@ -49,9 +56,9 @@ class Votes extends Component
             $this->total_score += $vote;
 
             if ($vote === 1) {
-                $this->arrow_up = 'orange';
+                $this->arrow_up = 'limegreen';
             } else {
-                $this->arrow_down = 'orange';
+                $this->arrow_down = 'red';
             }
 
             Yak::where('id', $this->yak->id)
@@ -83,8 +90,8 @@ class Votes extends Component
                 ->update([
                     'score' => $this->total_score
             ]);
-            $this->arrow_up = 'black';
-            $this->arrow_down = 'black';
+            $this->arrow_up = 'lightgray';
+            $this->arrow_down = 'lightgray';
         } else {
             $this->total_score += $vote - $existing_vote->vote;
             Vote::where('id', $existing_vote->id)
@@ -96,11 +103,11 @@ class Votes extends Component
                     'score' => $this->total_score
             ]);
             if ($vote === 1) {
-                $this->arrow_up = 'orange';
-                $this->arrow_down = 'black';
+                $this->arrow_up = 'limegreen';
+                $this->arrow_down = 'lightgray';
             } else {
-                $this->arrow_up = 'black';
-                $this->arrow_down = 'orange';
+                $this->arrow_up = 'lightgray';
+                $this->arrow_down = 'red';
             }
         }
     }

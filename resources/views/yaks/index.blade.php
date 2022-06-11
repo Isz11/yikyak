@@ -15,12 +15,12 @@
                                 @livewire('votes', ['yak' => $yak])
                             </div>
 
-                            <div class="col">
+                            <div class="col" style="color: gray">
                                 <div class="row">
                                     <h6>Posted by {{ $yak->user->username }}</h6>
                                 </div>
                                 <div class="row">
-                                    <h4><a href="/yaks/{{ $yak->id }}">{{ $yak->yak }}</a></h4>
+                                    <h4><a href="/yaks/{{ $yak->id }}" style="color: gray">{{ $yak->yak }}</a></h4>
                                 </div>
                                 <div class="row">
                                     {{ get_time_ago($yak->created_at) }} ---
