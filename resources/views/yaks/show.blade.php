@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-1">
+                    <div class="col-md-1 align-self-center">
                         @livewire('votes', ['yak' => $yak])
                     </div>
                     <div class="col" style="color: gray">
@@ -17,20 +17,11 @@
                             <h4>{{ $yak->yak }}</h4>
                         </div>
                         <div class="row">
-                            {{ get_time_ago($yak->created_at) }} ---
-
-                            @php $count = 0 @endphp
-                            @foreach($replies as $reply)
-                                @if ($reply->yak_id == $yak->id)
-                                    @php $count++ @endphp
-                                @endif
-                            @endforeach
-
-                            @if ($count == 1)
-                                {{ $count }} reply
-                            @else
-                                {{ $count }} replies
-                            @endif
+                            {{ get_time_ago($yak->created_at) }}
+                        </div>
+                        <div class="row">
+                            <i class="fa fa-1x fa-map-marker" aria-hidden="true"></i>
+                            <p>~ Less than a mile away</p>
                         </div>
                     </div>
                 </div>
