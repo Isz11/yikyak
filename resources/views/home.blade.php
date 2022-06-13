@@ -5,7 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Your profile</div>
+                <div class="card-header">
+                    <div class="col">
+                        <div class="row">{{ Auth::user()->username }}</div>
+                        <div class="row">1456 yakarma</div>
+                    </div>
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,7 +19,10 @@
                         </div>
                     @endif
 
-                    Hello {{ Auth::user()->username }};
+                    Possible bio here
+                </div>
+                <div class="card-body">
+                    All this users yaks
                 </div>
             </div>
         </div>
