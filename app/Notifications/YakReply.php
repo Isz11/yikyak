@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -11,14 +12,18 @@ class YakReply extends Notification
 {
     use Queueable;
 
+    public $user;
+    public $yak_id;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user, $id)
     {
-        //
+        $this->user = $user;
+        $this->yak_id = $id;
     }
 
     /**
@@ -29,7 +34,7 @@ class YakReply extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -55,7 +60,11 @@ class YakReply extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'info' => [
+                'user' => $this->user,
+                'yak' => $this->yak_id,
+                'sent' => Carbon::now(),
+            ]
         ];
     }
 }
