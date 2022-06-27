@@ -12,7 +12,7 @@ class YakReply extends Notification
 {
     use Queueable;
 
-    public $user;
+    public $username;
     public $yak_id;
 
     /**
@@ -20,9 +20,9 @@ class YakReply extends Notification
      *
      * @return void
      */
-    public function __construct($user, $id)
+    public function __construct($username, $id)
     {
-        $this->user = $user;
+        $this->username = $username;
         $this->yak_id = $id;
     }
 
@@ -61,9 +61,8 @@ class YakReply extends Notification
     {
         return [
             'info' => [
-                'user' => $this->user,
-                'yak' => $this->yak_id,
-                'sent' => Carbon::now(),
+                'message' => "$this->username commented on your yak",
+                'url' => "yaks/$this->yak_id",
             ]
         ];
     }
