@@ -9,19 +9,20 @@
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             @foreach (auth()->user()->unreadNotifications as $notification)
-                <button style="background-color: lightgray" class="dropdown-item" href="#" wire:click.prevent="markAsRead( '{{ $notification->id }}', '{{ $notification->data['info']['url'] }}' )">
-                    {{ $notification->data['info']['message'] }}
-                    <br>
-                    {{ get_time_ago($notification->created_at) }}
-                </button>
+                <a style="background-color: lightgray" class="dropdown-item" href="#" wire:click.prevent="markAsRead( '{{ $notification->id }}', '{{ $notification->data['info']['url'] }}' )">
+                    <div>{{ $notification->data['info']['message'] }}</div>
+                    <div style="font-size: small">{{ get_time_ago($notification->created_at) }}</div>
+                </a>
             @endforeach
             @foreach (auth()->user()->readNotifications as $notification)
-                <button class="dropdown-item" href="{{ $notification->data['info']['url'] }}">
-                    {{ $notification->data['info']['message'] }}
-                    <br>
-                    {{ get_time_ago($notification->created_at) }}
-                </button>
+                <a class="dropdown-item" href="{{ $notification->data['info']['url'] }}">
+                    <div>{{ $notification->data['info']['message'] }}</div>
+                    <div style="font-size: small">{{ get_time_ago($notification->created_at) }}</div>
+                </a>
             @endforeach
+            @if (auth()->user()->unreadNotifications->count() > 0)
+                <button class="dropdown-item" href="#" style="font-size: small" wire:click="markAllAsRead">Mark all as read</button>
+            @endif
         </div>
     </li>
 </div>
