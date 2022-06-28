@@ -62,7 +62,7 @@ class YakReply extends Notification
         return [
             'info' => [
                 'message' => "$this->username commented on your yak",
-                'url' => "yaks/$this->yak_id",
+                'url' => "/yaks/$this->yak_id"
             ]
         ];
     }
