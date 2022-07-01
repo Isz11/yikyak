@@ -11,7 +11,8 @@
                     </div>
                     <div class="col" style="color: gray">
                         <div class="row">
-                            <h6>Posted by {{ $yak->user->username }}</h6>
+                            <h6>Posted by <a style="text-decoration: none; color: gray;" href="{{ route('profile.show',$yak->user->username) }}">
+                                {{ $yak->user->username }}</a></h6>
                         </div>
                         <div class="row">
                             <h4>{{ $yak->yak }}</h4>
@@ -42,7 +43,10 @@
                 <div>
                     <div class="col">
                         <div class="row">
-                            <h6>Posted by {{ $reply->user->username }}</h6>
+                            <h6>Posted by
+                                <a style="text-decoration: none; color: gray;" href="{{ route('profile.show',$reply->user->username) }}">
+                                    {{ $reply->user->username }}</a>
+                            </h6>
                         </div>
                         <div class="row">
                             {{ $reply->reply }}
