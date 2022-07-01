@@ -62,7 +62,7 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('home') }}">
+                                    <a class="dropdown-item" href="{{ route('profile.show',Auth::user()->username) }}">
                                         {{ __('View Profile') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('communities.index') }}">

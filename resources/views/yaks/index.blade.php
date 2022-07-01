@@ -17,7 +17,8 @@
 
                             <div class="col" style="color: gray">
                                 <div class="row">
-                                    <h6>Posted by {{ $yak->user->username }}</h6>
+                                    <h6>Posted by <a style="text-decoration: none; color: gray;" href="{{ route('profile.show',$yak->user->username) }}">
+                                        {{ $yak->user->username }}</a></h6>
                                 </div>
                                 <div class="row">
                                     <h4><a href="/yaks/{{ $yak->id }}" style="color: gray">{{ $yak->yak }}</a></h4>
