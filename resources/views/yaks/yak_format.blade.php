@@ -36,7 +36,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-1 align-self-center">
                         @auth
                         <div class="nav-item dropdown">
@@ -64,7 +64,7 @@
                     <div class="col">
                         Share
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
