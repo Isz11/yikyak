@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\YakController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Route::get('/yaks/{id}', [YakController::class, 'show'])->name('yaks.show');
 Route::delete('/yaks/{id}', [YakController::class, 'destroy'])->name('yaks.destroy')->middleware('auth');;
 
 Route::post('/yaks/{id}', [ReplyController::class, 'store'])->name('replies.store');
+
+Route::get('/{username}', [UserController::class, 'show'])->name('profile.show');
 
 Route::get('/communities', [CommunityController::class, 'index'])->name('communities.index');
 Route::get('/communities/{slug}', [CommunityController::class, 'show'])->name('communities.show');
