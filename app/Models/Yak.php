@@ -17,10 +17,10 @@ class Yak extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
-    public function yaks() {
-        return $this->hasMany(Reply::class);
+    public function reply() {
+        return $this->hasMany(Replies::class);
     }
-    public function yakVotes() {
+    public function vote() {
         return $this->hasMany(Vote::class);
     }
 }

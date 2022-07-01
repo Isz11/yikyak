@@ -14,24 +14,17 @@
                                 {{ $yak->user->username }}</a></h6>
                         </div>
                         <div class="row">
-                            <h4><a href="/yaks/{{ $yak->id }}" style="color: gray">{{ $yak->yak }}</a></h4>
+                            <h4><a href="/yaks/{{ $yak->id }}" style="text-decoration: none; color: gray">{{ $yak->yak }}</a></h4>
                         </div>
                         <div class="row">
                             {{ get_time_ago($yak->created_at) }} &bull; 
 
                             Nearby &bull; 
                             
-                            @php $count = 0 @endphp
-                            @foreach($replies as $reply)
-                                @if ($reply->yak_id == $yak->id)
-                                    @php $count++ @endphp
-                                @endif
-                            @endforeach
-
-                            @if ($count == 1)
-                                {{ $count }} reply
+                            @if($yak->reply->where('yak_id', $yak->id)->count() === 1)
+                                {{ $yak->reply->where('yak_id', $yak->id)->count() }} reply
                             @else
-                                {{ $count }} replies
+                                {{ $yak->reply->where('yak_id', $yak->id)->count() }} replies
                             @endif
                         </div>
                     </div>
