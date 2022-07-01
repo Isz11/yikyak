@@ -7,22 +7,21 @@
             <div class="card">
                 <div class="card-header">
                     <div class="col">
-                        <div class="row">{{ Auth::user()->username }}</div>
-                        <div class="row">1456 yakarma</div>
+                        <div class="row">Welcome {{ Auth::user()->username }}</div>
                     </div>
                 </div>
-
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-outline-secondary btn-block" href="{{ route('yaks.index') }}">Yaks</a>
                         </div>
-                    @endif
-
-                    Possible bio here
-                </div>
-                <div class="card-body">
-                    All this users yaks
+                        <div class="col">
+                            <a class="btn btn-outline-secondary btn-block" href="{{ route('profile.show',Auth::user()->username) }}">Your profile</a>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-outline-secondary btn-block" href="{{ route('communities.index') }}">Communities</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
