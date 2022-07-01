@@ -12,7 +12,8 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    Possible bio here
+                    Possible home community here. Ability to select it. <br>
+                    Possible bio here. Ability to edit it. <br>
                 </div> 
                 @if(count($yaks))
                     <div class="card-body">
