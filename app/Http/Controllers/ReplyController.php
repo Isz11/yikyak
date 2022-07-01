@@ -18,7 +18,7 @@ class ReplyController extends Controller
         
         // grabbing the id of the user to be notified
         $user_id = Yak::where('id', $id)->first();
-        $user = User::where('id', $user_id->id)->first();
+        $user = User::where('id', $user_id->user_id)->first();
 
         // grabbing the name of the user who replied
         $logged_in_user = User::where('id', auth()->id())->first();
