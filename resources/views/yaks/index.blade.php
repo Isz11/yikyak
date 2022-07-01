@@ -10,7 +10,7 @@
             <a href="{{ route('yaks.create') }}">Create a yak</a>
         </div>
     </div>
-    @include('yaks.yak_format')
+    @livewire('yak-display', ['yaks' => $yaks])
 </div>
 
 @endsection
