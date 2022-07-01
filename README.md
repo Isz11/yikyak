@@ -14,7 +14,6 @@ Notes for later
 To do
 - Update the show yak page
     - Update the css for the replies
-- Be able to view your own posts on your profile
 - Be able to sort the homepage yaks by new / most popular in the last 7 days
 - Add notifications
     - You have received 5, 10, 25, 50, 100 etc votes on your yak
