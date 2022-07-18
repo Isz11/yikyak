@@ -38,34 +38,38 @@
                     </form>
                 @endif
             @endauth
-            <br><br><br>
-            @foreach($replies as $reply)
-                <div>
-                    <div class="col">
-                        <div class="row">
-                            <h6>Posted by
-                                <a style="text-decoration: none; color: gray;" href="{{ route('profile.show',$reply->user->username) }}">
-                                    {{ $reply->user->username }}</a>
-                            </h6>
-                        </div>
-                        <div class="row">
+        <br><br><br>
+        <h6>Replies</h6>
+        @foreach($replies as $reply)
+        <div class="card">
+            <div class="card-body">
+                <div class="col">
+                    <div class="row" style="color: gray">
+                        <h6>Posted by
+                            <a style="text-decoration: none; color: gray;" href="{{ route('profile.show',$reply->user->username) }}">
+                                {{ $reply->user->username }}</a>
+                        </h6>
+                    </div>
+                    <div class="row" style="color: gray">
+                        <h4>
                             {{ $reply->reply }}
-                        </div>
-                        <div class="row">
-                            {{ get_time_ago($reply->created_at) }}
-                            <br>
-                        </div>
+                        </h5>
+                    </div>
+                    <div class="row" style="color: gray">
+                        {{ get_time_ago($reply->created_at) }}
+                        <br>
                     </div>
                 </div>
-                <br><br>
-            @endforeach
-            @auth
-                <form class="" action="{{ route('replies.store', $yak->id) }}" method="post">
-                    @csrf
-                    <textarea name="reply" id="reply" rows="8" cols="80" placeholder="Enter your reply here..."></textarea><br>
-                    <input type="submit" name="submit" value="Submit reply">
-                </form>
-            @endauth
+            </div>
+        </div>
+        @endforeach
+        @auth
+            <form class="" action="{{ route('replies.store', $yak->id) }}" method="post">
+                @csrf
+                <textarea name="reply" id="reply" rows="8" cols="80" placeholder="Enter your reply here..."></textarea><br>
+                <input type="submit" name="submit" value="Submit reply">
+            </form>
+        @endauth
 
     </div>
 </div>
